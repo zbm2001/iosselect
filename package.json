@@ -1,14 +1,14 @@
 {
-  "name": "iosselect",
-  "version": "0.0.4",
+  "name": "z-iosselect",
+  "version": "0.0.5",
   "description": "iosselect for andriod and ios",
-  "main": "merge/iosSelect.js",
+  "main": "index.js",
   "scripts": {
     "test": "test"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zhoushengmufc/iosselect.git"
+    "url": "git+https://github.com/zbm2001/iosselect.git"
   },
   "keywords": [
     "iosselect",
@@ -19,7 +19,10 @@
   "author": "zhousheng",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/zhoushengmufc/iosselect/issues"
+    "url": "https://github.com/zbm2001/iosselect/issues"
   },
-  "homepage": "https://github.com/zhoushengmufc/iosselect#readme"
+  "homepage": "https://github.com/zbm2001/iosselect#readme",
+  "dependencies": {
+    "iscroll": "^5.2.0"
+  }
 }

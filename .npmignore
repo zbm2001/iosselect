@@ -1,0 +1,14 @@
+node_modules
+testing
+.jshint
+coverage.html
+npm-debug.log
+index-cov.js
+.DS_Store
+
+.npmignore
+.project
+.idea
+demo
+img
+merge

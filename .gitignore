@@ -1,0 +1,10 @@
+node_modules
+testing
+.jshint
+coverage.html
+npm-debug.log
+index-cov.js
+.DS_Store
+
+.project
+.idea
