@@ -712,7 +712,7 @@ IosSelect.prototype = {
           document.body.classList.remove('ios-select-body-class');
         }
         window.scrollTo(0, self.offsetTop);
-        self.callback && self.callback(/*type, */self.selectOneObj, self.selectTwoObj, self.selectThreeObj, self.selectFourObj, self.selectFiveObj);
+        self.callback && self.callback(type, self.selectOneObj, self.selectTwoObj, self.selectThreeObj, self.selectFourObj, self.selectFiveObj);
       }
     }, this);
 
