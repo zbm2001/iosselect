@@ -84,7 +84,7 @@ Layer.prototype = {
   bindEvent: function () {
     var closeHandle = this.close.bind(this);
     Array.prototype.forEach.call(this.el.querySelectorAll('.close, .sure'), function(btn){
-      addEventListener('click', closeHandle, false)
+      btn.addEventListener('click', closeHandle, false)
     })
   },
   close: function (e) {
