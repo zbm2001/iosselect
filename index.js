@@ -82,21 +82,12 @@ Layer.prototype = {
     this.bindEvent();
   },
   bindEvent: function () {
-    var sureDom = this.el.querySelectorAll('.sure');
-    var closeDom = this.el.querySelectorAll('.close');
-    var self = this;
-    for (var i = 0, len = sureDom.length; i < len; i++) {
-      sureDom[i].addEventListener('click', function (e) {
-        self.close();
-      });
-    }
-    for (var i = 0, len = closeDom.length; i < len; i++) {
-      closeDom[i].addEventListener('click', function (e) {
-        self.close();
-      });
-    }
+    var closeHandle = this.close.bind(this);
+    Array.prototype.forEach.call(this.el.querySelectorAll('.close, .sure'), function(btn){
+      addEventListener('click', closeHandle, false)
+    })
   },
-  close: function () {
+  close: function (e) {
     if (this.el) {
       this.el.parentNode.removeChild(this.el);
       this.el = null;
@@ -155,6 +146,9 @@ IosSelect.prototype = {
     this.selectFourObj = {};
     this.selectFiveObj = {};
     this.setOneLevel(this.options.oneLevelId, this.options.twoLevelId, this.options.threeLevelId, this.options.fourLevelId, this.options.fiveLevelId);
+  },
+  isShow: function(){
+    return !!(this.iosSelectLayer && this.iosSelectLayer.el);
   },
   initLayer: function () {
     var self = this;
@@ -705,22 +699,23 @@ IosSelect.prototype = {
     }
 
     // 取消 确认 事件
-    this.closeBtnDom = this.iosSelectLayer.el.querySelector('.close');
-    this.closeBtnDom.addEventListener('click', function (e) {
-      if (document.body.classList.contains('ios-select-body-class')) {
-        document.body.classList.remove('ios-select-body-class');
-      }
-      window.scrollTo(0, self.offsetTop);
-    });
+    // this.cancelBtn this.confirmBtn
+    ['.close', '.sure'].forEach(function(selector, i){
+      var type = ['cancel', 'confirm'][i];
+      var name = ['cancelBtn', 'confirmBtn'][i];
+      var btn = this[name] = this.iosSelectLayer.el.querySelector(selector);
 
-    this.selectBtnDom = this.iosSelectLayer.el.querySelector('.sure');
-    this.selectBtnDom.addEventListener('click', function (e) {
-      if (document.body.classList.contains('ios-select-body-class')) {
-        document.body.classList.remove('ios-select-body-class');
+      btn.addEventListener('click', handleEvent, false);
+
+      function handleEvent(e) {
+        if (document.body.classList.contains('ios-select-body-class')) {
+          document.body.classList.remove('ios-select-body-class');
+        }
+        window.scrollTo(0, self.offsetTop);
+        self.callback && self.callback(/*type, */self.selectOneObj, self.selectTwoObj, self.selectThreeObj, self.selectFourObj, self.selectFiveObj);
       }
-      window.scrollTo(0, self.offsetTop);
-      self.callback && self.callback(self.selectOneObj, self.selectTwoObj, self.selectThreeObj, self.selectFourObj, self.selectFiveObj);
-    });
+    }, this);
+
   },
   loadingShow: function () {
     this.options.showLoading && (this.iosSelectLoadingBoxDom.style.display = 'block');
